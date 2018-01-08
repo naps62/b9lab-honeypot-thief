@@ -9,7 +9,7 @@ const getBalance = P.promisify(web3.eth.getBalance);
 contract("Thief", accounts => {
   const owner = accounts[0];
   const hacker = accounts[1];
-  const value = new BigNumber(web3.toWei(0.01, "ether"));
+  const value = new BigNumber(web3.toWei(0.1, "ether"));
   let thief = null;
   let honeypot = null;
 
@@ -17,11 +17,11 @@ contract("Thief", accounts => {
   });
 
   beforeEach(async () => {
-    honeypot = await HoneyPot.new({ from: owner, value: web3.toWei(1, "ether") });
+    honeypot = await HoneyPot.new({ from: owner, value: web3.toWei(5, "ether") });
 
     thief = await Thief.new(
       honeypot.address,
-      10,
+      51,
       { from: hacker, value: value }
     );
   });
@@ -34,8 +34,11 @@ contract("Thief", accounts => {
     );
 
     const final = await getBalance(thief.address);
+    const leftovers = await getBalance(honeypot.address);
 
-    assert(final.equals(new BigNumber(value).times(10)));
+    assert(final.equals(new BigNumber(value).times(51)));
+    console.log(web3.fromWei(leftovers).toNumber())
+    assert(leftovers.equals(0));
   });
 
   it("allows the owner to withdraw everything", async () => {

