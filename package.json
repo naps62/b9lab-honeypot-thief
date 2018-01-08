@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "bignumber.js": "^5.0.0",
+    "bluebird": "^3.5.1"
+  }
+}
